@@ -1,0 +1,39 @@
+package service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import entity.Task;
+import repository.TaskRepository;
+
+@Service
+public class TaskService implements ITaskService {
+	
+	@Autowired
+	private TaskRepository taskRepository;
+	
+	
+	public TaskService(TaskRepository taskRepository) {
+		this.taskRepository = taskRepository;
+	}
+
+	@Override
+	public List<Task> findAll() {
+		return taskRepository.findAll();
+	}
+
+	@Override
+	public Task create(Task task) {
+		
+		return this.taskRepository.save(task);
+	}
+
+	@Override
+	public Optional<Task> findOne(Long id) {
+		return this.taskRepository.findById(id);
+	}
+
+}
